@@ -16,7 +16,7 @@
     </bean>
 
     <!-- 凭证匹配器 -->
-    <bean id="credentialsMatcher" class="com.credentials.RetryLimitHashedCredentialsMatcher">
+    <bean id="credentialsMatcher" class="com.radiotherapy.credentials.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager" />
         <property name="hashAlgorithmName" value="md5" />
         <property name="hashIterations" value="2" />
@@ -24,7 +24,7 @@
     </bean>
 
     <!-- Realm实现 -->
-    <bean id="userRealm" class="com.realm.UserRealm">
+    <bean id="userRealm" class="com.radiotherapy.realm.UserRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher" />
     </bean>
     
