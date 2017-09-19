@@ -56,17 +56,30 @@
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- shiro的核心安全接口，必须 -->
         <property name="securityManager" ref="securityManager" />
+        <!-- 身份认证失败，跳转页面配置 -->
         <property name="loginUrl" value="/error/errorlogin" />
+        <!-- 权限认证失败，跳转指定页面 -->
         <property name="unauthorizedUrl" value="/error/error" />
+        <!-- shiro连接约束配置，即过滤链定义 -->
         <property name="filterChainDefinitions">
             <value>
                 /user/admin = roles[admin]
+                <!-- authc表示需要认证 -->
                 /user/** = authc
+                <!-- anon 表示匿名访问不需认证授权 -->
                 /** = anon
             </value>
         </property>
     </bean>
 	<!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+    <!-- 开启Shiro注解 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    
 </beans>

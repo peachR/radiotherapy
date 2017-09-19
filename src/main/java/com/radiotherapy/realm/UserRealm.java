@@ -37,7 +37,14 @@ public class UserRealm extends AuthorizingRealm {
 	    info.setStringPermissions(permissions);
 		return info;
 	}
-
+	
+	/*
+	 * 首先执行这个登录验证
+	 * @see org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
+	 * @param token
+	 * @return
+	 * @throws AuthenticationException
+	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		// TODO Auto-generated method stub
