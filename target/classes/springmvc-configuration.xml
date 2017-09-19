@@ -10,7 +10,10 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
   <!--整合mybaits-->
-  <import resource="mybaits-configration.xml" />
+  <import resource="mybaits-configuration.xml" />
+  
+  <!-- 整合shiro -->
+  <import resource="shiro-configuration.xml" />
 
   <!--扫描基包-->
   <context:component-scan base-package="com.radiotherapy" />
