@@ -19,7 +19,7 @@
     <bean id="credentialsMatcher" class="com.radiotherapy.credentials.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager" />
         <property name="hashAlgorithmName" value="md5" />
-        <property name="hashIterations" value="2" />
+        <property name="hashIterations" value="16" />
         <property name="storedCredentialsHexEncoded" value="true" />
     </bean>
 

@@ -6,8 +6,8 @@ import java.util.Set;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -48,14 +48,15 @@ public class UserRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		// TODO Auto-generated method stub
-		/*String userName = (String) token.getPrincipal();
-		User user = userService.getUserByNumber(userName);
+		//获取用户身份这里是账号
+		String number = token.getPrincipal().toString();
+		User user = userService.getUserByNumber(number);
 		if(user == null){
-			throw new IncorrectCredentialsException();
+			//如果账号不存在抛出账号不存在异常
+			throw new UnknownAccountException();
 		}
-		
-		ByteSource credentialsSalt = ByteSource.Util.bytes(userName);
-		return new SimpleAuthenticationInfo(userName,user.getPassword(),credentialsSalt,getName());*/
-		return null;
+		//以用户id和账号作为salt
+		ByteSource credentialsSalt = ByteSource.Util.bytes(user.getId() + user.getName());
+		return new SimpleAuthenticationInfo(number, user.getPassword(),credentialsSalt, getName());
 	}
 }

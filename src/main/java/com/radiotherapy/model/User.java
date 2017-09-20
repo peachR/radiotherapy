@@ -20,6 +20,7 @@ public class User {
     private String password;
 
     private Boolean activate;
+    
 
     public Integer getId() {
         return id;
